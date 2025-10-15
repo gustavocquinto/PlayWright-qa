@@ -1,13 +1,16 @@
 import { test, expect } from '@playwright/test';
 import { randomInt } from 'crypto';
+import { Login } from './pages/access_page';
 
 const invalidLoginCases = [
   { name: 'E-mail vazio', email: '', password: 'senha123', expected: 'Email é obrigatório' },
   { name: 'Senha vazia', email: 'gutocross.dx@gmail.com', password: '', expected: 'Password é obrigatório' },
-  //{ name: 'domínio inválido', email: 'usuario@.com', password: 'senha123', expected: 'Email inválido' },
 ];
+
 test.beforeEach(async ({ page }) => {
-    await page.goto('https://front.serverest.dev/login');
+    const loginPage = new Login(page)
+
+    await loginPage.acessar_pagina();
 });
 
 test.describe('Cadastro e login na plataforma', () => {
@@ -38,12 +41,9 @@ test.describe('Cadastro e login na plataforma', () => {
   });
 
   test('Acesso com cadastro recém criado', async ({ page }) => {
-
-    await page.getByPlaceholder("Digite seu email").fill("gutocross.dx@gmail.com");
-
-    await page.getByPlaceholder("Digite sua senha").fill("Senha@Forte123");
-
-    await page.getByText("Entrar").click();
+    const loginPage = new Login(page)
+   
+    await loginPage.logar();
 
     await expect(page.getByText(/Bem Vindo/)).toBeVisible();
 
