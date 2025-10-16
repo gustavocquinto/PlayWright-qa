@@ -7,10 +7,11 @@ const invalidLoginCases = [
   { name: 'Senha vazia', email: 'gutocross.dx@gmail.com', password: '', expected: 'Password é obrigatório' },
 ];
 
+//transformar em fixtures.
 test.beforeEach(async ({ page }) => {
     const loginPage = new Login(page)
 
-    await loginPage.acessar_pagina();
+    await loginPage.acessarPagina();
 });
 
 test.describe('Cadastro e login na plataforma', () => {
@@ -43,7 +44,7 @@ test.describe('Cadastro e login na plataforma', () => {
   test('Acesso com cadastro recém criado', async ({ page }) => {
     const loginPage = new Login(page)
    
-    await loginPage.logar();
+    await loginPage.acessoAdministrador();
 
     await expect(page.getByText(/Bem Vindo/)).toBeVisible();
 
