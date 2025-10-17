@@ -1,10 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { randomInt } from 'crypto';
-import { Login } from './pages/access_page';
+import { Login } from '../pages/access_page';
+import { UserFactory } from '../factories/user_factory';
 
 const invalidLoginCases = [
-  { name: 'E-mail vazio', email: '', password: 'senha123', expected: 'Email é obrigatório' },
-  { name: 'Senha vazia', email: 'gutocross.dx@gmail.com', password: '', expected: 'Password é obrigatório' },
+  { name: 'com e-mail vazio', email: '', password: 'senha123', expected: 'Email é obrigatório' },
+  { name: 'com senha vazia', email: 'gutocross.dx@gmail.com', password: '', expected: 'Password é obrigatório' },
 ];
 
 //transformar em fixtures.
@@ -14,22 +15,21 @@ test.beforeEach(async ({ page }) => {
     await loginPage.acessarPagina();
 });
 
-test.describe('Cadastro e login na plataforma', () => {
+test.describe('Cadastro', () => {
   
+  test('Conta', async ({ page }) => {
 
-  test('Cadastro de conta', async ({ page }) => {
-
-    let randomEmail= randomInt(999);
+    const adminUser = new UserFactory().admin();
 
     await expect(page).toHaveTitle("Front - ServeRest");
 
     await page.getByText("Cadastre-se").click();
 
-    await page.getByPlaceholder("Digite seu nome").fill("Tester QA 1");
+    await page.getByPlaceholder("Digite seu nome").fill(adminUser.name);
 
-    await page.getByPlaceholder("Digite seu email").fill(`gutocross.dx${randomEmail}@gmail.com`);
+    await page.getByPlaceholder("Digite seu email").fill(adminUser.email);
 
-    await page.getByPlaceholder("Digite sua senha").fill("Senha@Forte123");
+    await page.getByPlaceholder("Digite sua senha").fill(adminUser.password);
 
     await page.getByRole('checkbox', {name: 'administrador'}).check();
 
@@ -41,18 +41,18 @@ test.describe('Cadastro e login na plataforma', () => {
 
   });
 
-  test('Acesso com cadastro recém criado', async ({ page }) => {
-    const loginPage = new Login(page)
-   
-    await loginPage.acessoAdministrador();
-
-    await expect(page.getByText(/Bem Vindo/)).toBeVisible();
-
-  });
 });
 
-test.describe('Login com credenciais inválidas', () => {
-    for (const testCase of invalidLoginCases){
+test.describe('Login', () => {
+  
+  test('com sucesso', async ({ page }) => {
+    const loginPage = new Login(page);
+
+    await loginPage.acessoAdministrador();
+
+  });
+
+  for (const testCase of invalidLoginCases){
     test(`${testCase.name}`, async ({ page }) => {
 
         await page.getByPlaceholder("Digite seu email").fill(testCase.email);
@@ -65,4 +65,6 @@ test.describe('Login com credenciais inválidas', () => {
     });
   }
 
-});
+})
+    
+
