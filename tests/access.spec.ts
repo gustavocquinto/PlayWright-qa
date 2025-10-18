@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import { randomInt } from 'crypto';
 import { Login } from '../pages/access_page';
 import { UserFactory } from '../factories/user_factory';
 
