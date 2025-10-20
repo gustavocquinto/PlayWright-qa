@@ -1,22 +1,13 @@
-import { test, expect } from '@playwright/test';
-import { Login } from '../pages/access_page';
-import { faker } from '@faker-js/faker/locale/pt_BR';
+import { expect } from '@playwright/test';
+import { LoginPage } from '../pages/access_page';
 import { UserPage } from '../pages/user_page';
 import { UserFactory } from '../factories/user_factory';
-import { time } from 'console';
+import { test } from '../fixtures/login_fixture';
 
-
-//transformar em fixtures.
-test.beforeEach(async ({page}) => {
-        const loginPage = new Login(page);
-
-        await loginPage.acessarPagina();
-        await loginPage.acessoAdministrador();
-    });
 
 test.describe("Criação de Usuários e listagem de usuário", () => {
     
-    test('Usuario Comum', async ({page}) => {
+    test('Usuario Comum', async ({page, adminLogin}) => {
         const userPage = new UserPage(page);
         const commonUser = new UserFactory().common();
 
@@ -26,7 +17,7 @@ test.describe("Criação de Usuários e listagem de usuário", () => {
         //Realizo o logout para aproveitar essa sessão e credenciais geradas dinamicamente pelo faker
         await page.getByText('Logout').click();
 
-        const loginPage = new Login(page);
+        const loginPage = new LoginPage(page);
 
         await loginPage.login(commonUser.email, commonUser.password);
 
@@ -34,7 +25,7 @@ test.describe("Criação de Usuários e listagem de usuário", () => {
         
     })
 
-    test('Usuario Administrador e listagem', async ({page}) => {
+    test('Usuario Administrador e listagem', async ({page, adminLogin}) => {
         const userPage = new UserPage(page);
         const adminUser = new UserFactory().admin();
 
@@ -44,7 +35,7 @@ test.describe("Criação de Usuários e listagem de usuário", () => {
         //Realizo o logout para aproveitar essa sessão e credenciais geradas dinamicamente pelo faker
         await page.getByText('Logout').click();
 
-        const loginPage = new Login(page);
+        const loginPage = new LoginPage(page);
 
         await loginPage.login(adminUser.email, adminUser.password);
 

@@ -2,7 +2,7 @@ import { Page, test, expect } from '@playwright/test';
 import dotenv from 'dotenv';
 
 
-export class Login{
+export class LoginPage{
     readonly page: Page;
 
     constructor(page: Page) {
