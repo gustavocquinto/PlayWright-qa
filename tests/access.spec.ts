@@ -1,18 +1,12 @@
-import { test, expect } from '@playwright/test';
-import { Login } from '../pages/access_page';
+import { expect } from '@playwright/test';
 import { UserFactory } from '../factories/user_factory';
+import { LoginPage } from '../pages/access_page';
+import { test } from '../fixtures/login_fixture';
 
 const invalidLoginCases = [
   { name: 'com e-mail vazio', email: '', password: 'senha123', expected: 'Email é obrigatório' },
   { name: 'com senha vazia', email: 'gutocross.dx@gmail.com', password: '', expected: 'Password é obrigatório' },
 ];
-
-//transformar em fixtures.
-test.beforeEach(async ({ page }) => {
-    const loginPage = new Login(page)
-
-    await loginPage.acessarPagina();
-});
 
 test.describe('Cadastro', () => {
   
@@ -44,11 +38,8 @@ test.describe('Cadastro', () => {
 
 test.describe('Login', () => {
   
-  test('com sucesso', async ({ page }) => {
-    const loginPage = new Login(page);
-
-    await loginPage.acessoAdministrador();
-
+  test('com sucesso', async ({ page, adminLogin }) => {
+      await expect(page.getByText(/Bem Vindo/)).toBeVisible();
   });
 
   for (const testCase of invalidLoginCases){
