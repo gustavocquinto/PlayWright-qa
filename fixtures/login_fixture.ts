@@ -1,4 +1,4 @@
-import {baseTest as base} from '../fixtures/base_fixture';
+import {baseTest as base, expect} from '../fixtures/base_fixture';
 import { LoginPage } from '../pages/access_page';
 
 type LoginFixtures = {
@@ -10,7 +10,7 @@ export const test = base.extend<LoginFixtures>({
     adminLogin: async ({page}, use) => {
         const loginPage = new LoginPage(page);
         await loginPage.acessoAdministrador();
-
+        await expect(page.getByText(/Bem Vindo/)).toBeVisible();
         await use();
     },
 })
