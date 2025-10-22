@@ -55,25 +55,19 @@ test.describe('Produtos', () => {
 
         const colsOfFirstRow = await tableFirstRow.locator('td').all();
         
-        const colProductName = await colsOfFirstRow[0].innerText();
+        firstProductOfTable.name = await colsOfFirstRow[0].innerText();
 
-        const colProductPrice = await colsOfFirstRow[1].innerText();
+        firstProductOfTable.price = await colsOfFirstRow[1].innerText();
 
-        const colProductDescription = await colsOfFirstRow[2].innerText();
+        firstProductOfTable.description = await colsOfFirstRow[2].innerText();
 
-        const colProductQuantity = await colsOfFirstRow[3].innerText();
-
-        firstProductOfTable.setProduct(colProductName, colProductPrice, colProductDescription, colProductQuantity);
+        firstProductOfTable.quantity = await colsOfFirstRow[3].innerText();
         
         //Acesso os botões da primeira linha
 
         const deleteButton = tableFirstRow.getByRole('button', { name: 'Excluir' });
         await deleteButton.waitFor({ state: 'visible' });
         await deleteButton.click();
-
-        //await page.waitForSelector('table tbody tr', {state:'visible'});
-
-        //await tableFirstRow.waitFor({ state: 'detached' });
 
     })
 });
