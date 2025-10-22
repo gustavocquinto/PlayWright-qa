@@ -40,5 +40,40 @@ test.describe('Produtos', () => {
             }
         };
         await expect(found).toBeTruthy();
+    });
+
+    test('Exclusão de produto', async({page, adminLogin}) => {
+        const firstProductOfTable = new Product();
+
+        await page.getByTestId('listar-produtos').click();
+
+        await page.waitForSelector('table tbody tr', {state:'visible'});
+
+        const table = page.locator('table tbody');
+
+        const tableFirstRow = table.locator('tr').first();
+
+        const colsOfFirstRow = await tableFirstRow.locator('td').all();
+        
+        const colProductName = await colsOfFirstRow[0].innerText();
+
+        const colProductPrice = await colsOfFirstRow[1].innerText();
+
+        const colProductDescription = await colsOfFirstRow[2].innerText();
+
+        const colProductQuantity = await colsOfFirstRow[3].innerText();
+
+        firstProductOfTable.setProduct(colProductName, colProductPrice, colProductDescription, colProductQuantity);
+        
+        //Acesso os botões da primeira linha
+
+        const deleteButton = tableFirstRow.getByRole('button', { name: 'Excluir' });
+        await deleteButton.waitFor({ state: 'visible' });
+        await deleteButton.click();
+
+        //await page.waitForSelector('table tbody tr', {state:'visible'});
+
+        //await tableFirstRow.waitFor({ state: 'detached' });
+
     })
 });
