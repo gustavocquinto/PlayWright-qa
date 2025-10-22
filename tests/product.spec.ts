@@ -9,11 +9,9 @@ test.describe('Produtos', () => {
 
         await page.getByTestId('cadastrar-produtos').click();
 
-        await productPage.createProduct(product.name, product.price, product.description, product.quantity, product.image);
+        await productPage.createProduct(product);
 
-        await expect(page.getByText('Lista dos Produtos')).toBeVisible();
-
-        await page.waitForSelector('table tbody tr', {state: 'visible'});
+        await productPage.list();
 
         const table = await page.locator('table tbody');
         let found = false;
@@ -43,31 +41,19 @@ test.describe('Produtos', () => {
     });
 
     test('Exclusão de produto', async({page, adminLogin}) => {
-        const firstProductOfTable = new Product();
+        const productPage = new ProductPage(page);
 
         await page.getByTestId('listar-produtos').click();
 
-        await page.waitForSelector('table tbody tr', {state:'visible'});
-
-        const table = page.locator('table tbody');
-
-        const tableFirstRow = table.locator('tr').first();
-
-        const colsOfFirstRow = await tableFirstRow.locator('td').all();
+        await productPage.list();
         
-        firstProductOfTable.name = await colsOfFirstRow[0].innerText();
+        const firstProductOfTable = await productPage.getFirstProductData();
 
-        firstProductOfTable.price = await colsOfFirstRow[1].innerText();
+        await productPage.deleteFirstProduct();
 
-        firstProductOfTable.description = await colsOfFirstRow[2].innerText();
+        const searchProductInList = await productPage.findProductInList(firstProductOfTable);
 
-        firstProductOfTable.quantity = await colsOfFirstRow[3].innerText();
-        
-        //Acesso os botões da primeira linha
-
-        const deleteButton = tableFirstRow.getByRole('button', { name: 'Excluir' });
-        await deleteButton.waitFor({ state: 'visible' });
-        await deleteButton.click();
+        await expect(searchProductInList).toBeFalsy();
 
     })
 });
