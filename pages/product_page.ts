@@ -4,32 +4,32 @@ import { Product } from "../models/product_model";
 
 export class ProductPage {
     
-    public productPage: Page;
+    public page: Page;
 
     constructor(page: Page){
-        this.productPage = page;
+        this.page = page;
     }
 
     async createProduct(product: Product){
         const imageDir = '/assets/'
-        await this.productPage.getByPlaceholder('Digite o nome do produto').fill(product.name);
+        await this.page.getByPlaceholder('Digite o nome do produto').fill(product.name);
 
-        await this.productPage.getByPlaceholder('Digite o valor do produto').fill(product.price);
+        await this.page.getByPlaceholder('Digite o valor do produto').fill(product.price);
 
-        await this.productPage.getByPlaceholder('Digite a descrição do produto').fill(product.description);
+        await this.page.getByPlaceholder('Digite a descrição do produto').fill(product.description);
 
-        await this.productPage.getByPlaceholder('Digite aquantidade do produto').fill(product.quantity);
+        await this.page.getByPlaceholder('Digite aquantidade do produto').fill(product.quantity);
 
-        await this.productPage.getByTestId('imagem').setInputFiles(`../PlayWright-qa/assets/${product.image}`);
+        await this.page.getByTestId('imagem').setInputFiles(`../PlayWright-qa/assets/${product.image}`);
 
-        await this.productPage.getByTestId('cadastarProdutos').click();
+        await this.page.getByTestId('cadastarProdutos').click();
     }
 
     async list(): Promise<void>{
 
         try{
-            await expect(this.productPage.getByText('Lista dos Produtos')).toBeVisible();
-            await this.productPage.waitForSelector('table tbody tr', {state: 'visible'});
+            await expect(this.page.getByText('Lista dos Produtos')).toBeVisible();
+            await this.page.waitForSelector('table tbody tr', {state: 'visible'});
         }
         catch{
             throw new Error("Erro ao carregar a tela de listagem de produtos");
@@ -37,14 +37,14 @@ export class ProductPage {
 
     }
 
-    private async getFirstRowOfTable(): Promise<Locator>{
-        return await this.productPage.locator('table tbody tr').first();
+    private async getRowOfTable(row: number): Promise<Locator>{
+        return await this.page.locator('table tbody tr').nth(row)
     }
 
-    async getFirstProductData(): Promise<Product>{
+    async getProductData(row: number = 0): Promise<Product>{
         const product = new Product();
 
-        const columns = await (await this.getFirstRowOfTable()).locator('td').all();
+        const columns = await (await this.getRowOfTable(row)).locator('td').all();
 
         product.name = await columns[0].innerText();
         product.price = await columns[1].innerText();
@@ -54,8 +54,8 @@ export class ProductPage {
         return product
     }
 
-    async deleteFirstProduct(): Promise<void>{
-        return await (await this.getFirstRowOfTable()).getByRole('button', {name: 'Excluir'}).click();
+    async deleteProduct(row: number = 0): Promise<void>{
+        return await (await this.getRowOfTable(row)).getByRole('button', {name: 'Excluir'}).click();
     }
 
     async findProductInList(product: Product): Promise<boolean>{
@@ -80,6 +80,6 @@ export class ProductPage {
     }
 
     async getTableRows(): Promise<Locator[]>{
-        return await this.productPage.locator('table tbody tr').all();
+        return await this.page.locator('table tbody tr').all();
     }
 }
