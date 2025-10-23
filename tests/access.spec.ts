@@ -56,5 +56,15 @@ test.describe('Login', () => {
   }
 
 })
+
+test.describe('Permissoes', () => {
+  
+  test('Administrador', async ({ page, adminLogin }) => {
+     
+  });
+
+})
+
+
     
 

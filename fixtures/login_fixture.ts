@@ -10,7 +10,7 @@ export const test = base.extend<LoginFixtures>({
     adminLogin: async ({page}, use) => {
         const loginPage = new LoginPage(page);
         await loginPage.acessoAdministrador();
-        await expect(page.getByText(/Bem Vindo/)).toBeVisible();
+        await loginPage.permissionsCheckAdmin();
         await use();
     },
 })

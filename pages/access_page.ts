@@ -1,5 +1,6 @@
 import { Page, test, expect } from '@playwright/test';
 import dotenv from 'dotenv';
+import { User } from '../models/user_model';
 
 
 export class LoginPage{
@@ -38,11 +39,32 @@ export class LoginPage{
            
     }
 
-    async login(email: string, senha: string): Promise <void> {
-        await this.page.getByPlaceholder("Digite seu email").fill(email);
+    async login(user: User): Promise <void> {
+        await this.page.getByPlaceholder("Digite seu email").fill(user.email);
         
-        await this.page.getByPlaceholder("Digite sua senha").fill(senha);
+        await this.page.getByPlaceholder("Digite sua senha").fill(user.password);
         
         await this.page.getByText("Entrar").click();    
+
+        if (user.role == 'admin'){
+            await expect(this.page.getByText(/Bem Vindo/)).toBeVisible();
+        }
+        else{
+            await expect(this.page.getByText(/Serverest Store/)).toBeVisible();
+        }
+    }
+
+    async permissionsCheckAdmin(): Promise<void>{
+        const adminPermissions = ["cadastrar-usuarios", "listar-usuarios", "cadastrar-produtos", "listar-produtos", "link-relatorios"];
+
+        for(const permission of adminPermissions){
+            const element = await this.page.getByTestId(permission);
+            
+            const isVisible = await element.isVisible();
+
+            if(!isVisible){
+                throw new Error("Elemento não clicável para Role Admin");
+            }
+        }
     }
 }
