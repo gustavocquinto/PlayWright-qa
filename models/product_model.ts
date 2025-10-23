@@ -14,11 +14,4 @@ export class Product{
         this.quantity = faker.finance.amount({dec: 0});
         this.image = 'playwright-report.png';
     }
-
-    setProduct(name: string, price: string, description: string, quantity: string){
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.quantity = quantity;
-    }
 }
