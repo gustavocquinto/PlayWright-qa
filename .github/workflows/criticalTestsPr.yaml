@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
         TEST_BASE_URL: https://front.serverest.dev/login
-        TEST_USER_LOGIN: gutocross.dx@gmail.com
-        TEST_USER_PASSWORD: Senha@Forte123
+        TEST_USER_LOGIN: ${{ secrets.TEST_USER_LOGIN }}
+        TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
