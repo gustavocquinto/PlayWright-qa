@@ -1,5 +1,5 @@
 import { test as base } from '@playwright/test';
-import { LoginPage } from '../pages/access_page';
+import { LoginPage } from '../pages/access_page.js';
 
 
 export const baseTest = base.extend<{forEachTest: void}>({

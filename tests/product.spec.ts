@@ -1,9 +1,9 @@
-import { test, expect } from '../fixtures/login_fixture';
-import { Product } from '../models/product_model';
-import { ProductPage } from '../pages/product_page';
+import { test, expect } from '../fixtures/login_fixture.js';
+import { Product } from '../models/product_model.js';
+import { ProductPage } from '../pages/product_page.js';
 
 test.describe('Produtos', () => {
-    test('Cadastrar produto e listar', async ({page, adminLogin}) => {
+    test('@P1 Cadastrar produto e listar', async ({page, adminLogin}) => {
         const productPage = new ProductPage(page);
         const product = new Product();
 
@@ -19,7 +19,8 @@ test.describe('Produtos', () => {
 
     });
 
-    test('Exclusão de produto', async({page, adminLogin}) => {
+    test('@P2 Exclusão de produto', async({page, adminLogin}) => {
+        test.info().annotations.push({ type: 'priority', description: 'P3' });
         const productPage = new ProductPage(page);
 
         await page.getByTestId('listar-produtos').click();
