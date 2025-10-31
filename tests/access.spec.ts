@@ -59,8 +59,8 @@ test.describe('Login', () => {
 
 test.describe('Permissoes', () => {
   
-  test('Administrador', async ({ page, adminLogin }) => {
-     test.info().annotations.push({ type: 'priority', description: 'P1' });
+  test('@P1 Administrador', async ({ page, adminLogin }) => {
+     
   });
 
 })
