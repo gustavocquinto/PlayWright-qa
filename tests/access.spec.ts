@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
-import { UserFactory } from '../factories/user_factory.js';
-import { LoginPage } from '../pages/access_page.js';
-import { test } from '../fixtures/login_fixture.js';
+import { UserFactory } from '../factories/user_factory';
+import { LoginPage } from '../pages/access_page';
+import { test } from '../fixtures/login_fixture';
 
 const invalidLoginCases = [
   { name: 'com e-mail vazio', email: '', password: 'senha123', expected: 'Email é obrigatório' },
