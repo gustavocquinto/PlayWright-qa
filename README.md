@@ -86,7 +86,7 @@ Os relatórios HTML são gerados automaticamente após a execução, localizados
 
  Incluir fixtures personalizadas (ex: login reutilizável) - Done ✅
 
- Melhorar README com prints e GIFs de execução real - To do
+ Melhorar README com prints e GIFs de execução real - To do 
 
 ---
 
