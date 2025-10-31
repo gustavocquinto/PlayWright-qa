@@ -80,13 +80,13 @@ Os relatórios HTML são gerados automaticamente após a execução, localizados
 -----
 
 ### 💡 Próximos Passos (roadmap pessoal)
- Adicionar integração com Allure Report
+ Adicionar integração com Allure Report - Todo
 
- Adicionar execução automática em GitHub Actions
+ Adicionar execução automática em GitHub Actions - Done  ✅
 
- Incluir fixtures personalizadas (ex: login reutilizável)
+ Incluir fixtures personalizadas (ex: login reutilizável) - Done ✅
 
- Melhorar README com prints e GIFs de execução real
+ Melhorar README com prints e GIFs de execução real - To do
 
 ---
 
