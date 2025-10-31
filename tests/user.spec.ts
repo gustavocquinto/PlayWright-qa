@@ -1,8 +1,8 @@
 import { expect } from '@playwright/test';
-import { LoginPage } from '../pages/access_page.js';
-import { UserPage } from '../pages/user_page.js';
-import { UserFactory } from '../factories/user_factory.js';
-import { test } from '../fixtures/login_fixture.js';
+import { LoginPage } from '../pages/access_page';
+import { UserPage } from '../pages/user_page';
+import { UserFactory } from '../factories/user_factory';
+import { test } from '../fixtures/login_fixture';
 
 
 test.describe("Criação de Usuários e listagem de usuário", () => {

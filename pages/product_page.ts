@@ -1,5 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
-import { Product } from "../models/product_model.js";
+import { Product } from "../models/product_model";
 
 export class ProductPage {
     
@@ -43,10 +43,10 @@ export class ProductPage {
 
         const columns = await (await this.getRowOfTable(row)).locator('td').all();
 
-        product.name = await columns[0]!.innerText();
-        product.price = await columns[1]!.innerText();
-        product.description = await columns[2]!.innerText();
-        product.quantity = await columns[3]!.innerText();
+        product.name = await columns[0].innerText();
+        product.price = await columns[1].innerText();
+        product.description = await columns[2].innerText();
+        product.quantity = await columns[3].innerText();
 
         return product
     }

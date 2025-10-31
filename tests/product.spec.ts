@@ -1,6 +1,6 @@
-import { test, expect } from '../fixtures/login_fixture.js';
-import { Product } from '../models/product_model.js';
-import { ProductPage } from '../pages/product_page.js';
+import { test, expect } from '../fixtures/login_fixture';
+import { Product } from '../models/product_model';
+import { ProductPage } from '../pages/product_page';
 
 test.describe('Produtos', () => {
     test('@P1 Cadastrar produto e listar', async ({page, adminLogin}) => {
