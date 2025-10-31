@@ -1,13 +1,14 @@
 import { expect } from '@playwright/test';
-import { LoginPage } from '../pages/access_page';
-import { UserPage } from '../pages/user_page';
-import { UserFactory } from '../factories/user_factory';
-import { test } from '../fixtures/login_fixture';
+import { LoginPage } from '../pages/access_page.js';
+import { UserPage } from '../pages/user_page.js';
+import { UserFactory } from '../factories/user_factory.js';
+import { test } from '../fixtures/login_fixture.js';
 
 
 test.describe("Criação de Usuários e listagem de usuário", () => {
     
-    test('Usuario Comum', async ({page, adminLogin}) => {
+    test('@P1 Usuario Comum', async ({page, adminLogin}) => {
+        
         const userPage = new UserPage(page);
         const commonUser = new UserFactory().common();
 
@@ -23,7 +24,8 @@ test.describe("Criação de Usuários e listagem de usuário", () => {
         
     })
 
-    test('Usuario Administrador e listagem', async ({page, adminLogin}) => {
+    test('@P1 Usuario Administrador e listagem', async ({page, adminLogin}) => {
+        test.info().annotations.push({ type: 'priority', description: 'P1' });
         const userPage = new UserPage(page);
         const adminUser = new UserFactory().admin();
 

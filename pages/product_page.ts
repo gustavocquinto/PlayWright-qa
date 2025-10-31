@@ -1,6 +1,5 @@
 import { Locator, Page, expect } from "@playwright/test";
-import path from "path";
-import { Product } from "../models/product_model";
+import { Product } from "../models/product_model.js";
 
 export class ProductPage {
     
@@ -19,8 +18,6 @@ export class ProductPage {
         await this.page.getByPlaceholder('Digite a descrição do produto').fill(product.description);
 
         await this.page.getByPlaceholder('Digite aquantidade do produto').fill(product.quantity);
-
-        await this.page.getByTestId('imagem').setInputFiles(`../PlayWright-qa/assets/${product.image}`);
 
         await this.page.getByTestId('cadastarProdutos').click();
     }
@@ -46,10 +43,10 @@ export class ProductPage {
 
         const columns = await (await this.getRowOfTable(row)).locator('td').all();
 
-        product.name = await columns[0].innerText();
-        product.price = await columns[1].innerText();
-        product.description = await columns[2].innerText();
-        product.quantity = await columns[3].innerText();
+        product.name = await columns[0]!.innerText();
+        product.price = await columns[1]!.innerText();
+        product.description = await columns[2]!.innerText();
+        product.quantity = await columns[3]!.innerText();
 
         return product
     }
@@ -63,10 +60,10 @@ export class ProductPage {
         for(const row of await tableRows){
 
             const cols = await row.locator('td').all();
-            const savedProductName = await cols[0].innerText();
-            const savedProductPrice = await cols[1].innerText();
-            const savedProductDescription = await cols[2].innerText();
-            const savedProductQuantity = await cols[3].innerText();
+            const savedProductName = await cols[0]!.innerText();
+            const savedProductPrice = await cols[1]!.innerText();
+            const savedProductDescription = await cols[2]!.innerText();
+            const savedProductQuantity = await cols[3]!.innerText();
 
             if(savedProductName == product.name && 
                 savedProductPrice == product.price &&

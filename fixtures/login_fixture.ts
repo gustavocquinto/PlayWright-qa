@@ -1,5 +1,5 @@
-import {baseTest as base, expect} from '../fixtures/base_fixture';
-import { LoginPage } from '../pages/access_page';
+import {baseTest as base, expect} from '../fixtures/base_fixture.js';
+import { LoginPage } from '../pages/access_page.js';
 
 type LoginFixtures = {
     adminLogin: void;
