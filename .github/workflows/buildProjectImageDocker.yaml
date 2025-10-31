@@ -1,0 +1,28 @@
+name: Generate project image for docker
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout and clone repository
+      uses: actions/checkout@v4
+
+    - name: Login Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_HUB_USER }} -p ${{ secrets.DOCKER_HUB_PASS }} docker.io
+
+    - name: Generate project image
+      run: docker build -t playwright-image:${{ github.sha }} .
+
+    - name: Docker project image tagging
+      run:  docker tag playwright-image:${{ github.sha }} gutocross/automacao-playwright:${{ github.sha }}
+
+    - name: Send generated image to Docker Hub
+      run: docker push gutocross/automacao-playwright:${{ github.sha }}
+      
+      
