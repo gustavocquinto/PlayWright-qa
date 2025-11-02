@@ -3,7 +3,7 @@ name: Playwright PR Tests
 on:
   pull_request:
     branches:
-      - master
+      - master 
 
 jobs:
   test:
