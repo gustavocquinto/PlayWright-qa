@@ -24,5 +24,4 @@ jobs:
 
     - name: Send generated image to Docker Hub
       run: docker push gutocross/automacao-playwright:${{ github.sha }}
-      
-      
+

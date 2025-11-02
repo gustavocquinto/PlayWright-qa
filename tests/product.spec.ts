@@ -20,7 +20,6 @@ test.describe('Produtos', () => {
     });
 
     test('@P2 Exclusão de produto', async({page, adminLogin}) => {
-        test.info().annotations.push({ type: 'priority', description: 'P3' });
         const productPage = new ProductPage(page);
 
         await page.getByTestId('listar-produtos').click();
