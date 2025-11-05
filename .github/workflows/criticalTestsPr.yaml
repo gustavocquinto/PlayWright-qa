@@ -15,7 +15,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.changed_files > 0
     env:
         TEST_BASE_URL: https://front.serverest.dev/login
         TEST_USER_LOGIN: ${{ secrets.TEST_USER_LOGIN }}
