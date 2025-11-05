@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - "Dockerfile"
 
 jobs:
   docker:
@@ -20,8 +22,12 @@ jobs:
       run: docker build -t playwright-image:${{ github.sha }} .
 
     - name: Docker project image tagging
-      run:  docker tag playwright-image:${{ github.sha }} gutocross/automacao-playwright:${{ github.sha }}
+      run: |
+           docker tag playwright-image:${{ github.sha }} gutocross/automacao-playwright:${{ github.sha }}
+           docker tag playwright-image:${{ github.sha }} gutocross/automacao-playwright:latest
 
     - name: Send generated image to Docker Hub
-      run: docker push gutocross/automacao-playwright:${{ github.sha }}
+      run: |
+           docker push gutocross/automacao-playwright:${{ github.sha }}
+           docker push gutocross/automacao-playwright:latest
 
