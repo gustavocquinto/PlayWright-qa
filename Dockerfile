@@ -8,5 +8,3 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-
-CMD ["npx", "playwright", "test", "--grep", "@P1"]

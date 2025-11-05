@@ -3,7 +3,14 @@ name: Playwright PR Tests
 on:
   pull_request:
     branches:
-      - master 
+      - master
+    paths:
+      - "tests/**"
+      - "factories/**"
+      - "fixtures/**"
+      - "models/**"
+      - "pages/**"
+      
 
 jobs:
   test:
